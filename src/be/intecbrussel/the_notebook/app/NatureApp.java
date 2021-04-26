@@ -77,6 +77,8 @@ public class NatureApp {
         System.out.println("Total animal: "+forestNotebook.getAnimalCount());
         System.out.println("Total plant: "+forestNotebook.getPlantCount());
 
+
+
         cacao.setLeafType(LeafType.HAND);
         cactus.setLeafType(LeafType.SPEAR);
         mango.setLeafType(LeafType.ROUND);
@@ -92,6 +94,17 @@ public class NatureApp {
         goat.addPlantToDiet(tulip);
         buffalo.addPlantToDiet(cacao);
 
+        System.out.println("------Herbivore------");
+        herbivores.forEach(herbivore -> System.out.println(herbivore));
+
+        System.out.println("------Carnivore------");
+        carnivores.forEach(carnivore -> System.out.println(carnivore));
+
+        System.out.println("------Omnivore------");
+        omnivores.forEach(omnivore -> System.out.println(omnivore));
+
+
+        System.out.println("----------Animals  and Plants----------");
 
         forestNotebook.printNotebook();
 
