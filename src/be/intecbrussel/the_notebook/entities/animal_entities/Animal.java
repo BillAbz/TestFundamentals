@@ -1,5 +1,7 @@
 package be.intecbrussel.the_notebook.entities.animal_entities;
 
+import java.util.Objects;
+
 public class Animal {
     private String name;
     private double weight;
@@ -44,4 +46,23 @@ public class Animal {
     public void setLength(double length) {
         this.length = length;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Animal)) {
+            return false;
+        }
+        Animal other = (Animal) obj;
+        return Objects.equals(name, other.name);
+    }
+
+    
 }

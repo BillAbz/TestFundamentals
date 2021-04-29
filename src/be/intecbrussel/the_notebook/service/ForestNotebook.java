@@ -10,15 +10,17 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class ForestNotebook {
-    private List<Carnivore> carnivores;
-    private List<Omnivore> omnivores;
-    private List<Herbivore> herbivores;
+
+    private List<Carnivore> carnivores = new ArrayList<>();
+    private List<Omnivore> omnivores = new ArrayList<>();
+    private List<Herbivore> herbivores = new ArrayList<>();
     private int plantCount;
     private int animalCount;
     private List<Animal> animals = new LinkedList<>();
-    private List<Plant> plants =new LinkedList<>();
+    private List<Plant> plants = new LinkedList<>();
 
     public ForestNotebook() {
+
     }
 
     public List<Carnivore> getCarnivores() {
@@ -26,7 +28,9 @@ public class ForestNotebook {
     }
 
     public void setCarnivores(List<Carnivore> carnivores) {
-        this.carnivores = carnivores;
+        for (Carnivore c : carnivores) {
+            this.addAnimal(c);
+        }
     }
 
     public List<Omnivore> getOmnivores() {
@@ -34,7 +38,9 @@ public class ForestNotebook {
     }
 
     public void setOmnivores(List<Omnivore> omnivores) {
-        this.omnivores = omnivores;
+        for(Omnivore o : omnivores){
+            this.addAnimal(o);
+        }
     }
 
     public List<Herbivore> getHerbivores() {
@@ -42,61 +48,71 @@ public class ForestNotebook {
     }
 
     public void setHerbivores(List<Herbivore> herbivores) {
-        this.herbivores = herbivores;
+        for(Herbivore h : herbivores){
+            this.addAnimal(h);
+        }
     }
 
     public int getPlantCount() {
-        this.plantCount = plants.size();
+        // this.plantCount = plants.size();
         return plantCount;
     }
 
     public int getAnimalCount() {
-        this.animalCount = animals.size();
+        // this.animalCount = animals.size();
         return animalCount;
     }
 
-    public void addAnimal(Animal animal){
-        if (!animals.contains(animal.getName())) {
+    public void addAnimal(Animal animal) {
+
+        if (!animals.contains(animal)) {
             animals.add(animal);
+            animalCount++;
         }
 
+        if (animal instanceof Carnivore) {
+            this.carnivores.add((Carnivore) animal);
+        } else if (animal instanceof Omnivore) {
+            this.omnivores.add((Omnivore) animal);
+        } else if (animal instanceof Herbivore) {
+            this.herbivores.add((Herbivore) animal);
+        }
     }
 
-    public void addPlant(Plant plant){
-        if (!plants.contains(plant.getName()))
+    public void addPlant(Plant plant) {
+        if (!plants.contains(plant)) {
             plants.add(plant);
+            plantCount++;
+        }
     }
 
-    public void printNotebook(){
+    public void printNotebook() {
         plants.forEach(plant -> System.out.println(plant));
         animals.forEach(animal -> System.out.println(animal));
 
     }
 
-    public void sortAnimalsByName(){
-        Comparator<Animal> compareByName = (Animal o1, Animal o2) ->
-                o1.getName().compareTo(o2.getName());
+    public void sortAnimalsByName() {
 
-        Collections.sort(animals, compareByName);
+        this.animals.sort((a1, a2) -> a1.getName().compareTo(a2.getName()));
 
+        // Comparator<Animal> compareByName = (Animal o1, Animal o2) -> o1.getName().compareTo(o2.getName());
+        // Collections.sort(animals, compareByName);
 
     }
 
-    public void sortPlantsByName(){
-        Comparator<Plant> compareByName = (Plant o1, Plant o2) ->
-                o1.getName().compareTo(o2.getName());
-
+    public void sortPlantsByName() {
+        Comparator<Plant> compareByName = (Plant o1, Plant o2) -> o1.getName().compareTo(o2.getName());
         Collections.sort(plants, compareByName);
+    }
+
+    public void sortAnimalsByHeight() {
+        Collections.sort(animals,
+                Comparator.comparingDouble(Animal::getHeight).thenComparingDouble(Animal::getWeight).reversed());
 
     }
 
-    public void sortAnimalsByHeight(){
-        Collections.sort(animals, Comparator.comparingDouble(Animal::getHeight)
-                .thenComparingDouble(Animal::getWeight).reversed());
-
-    }
-
-    public void sortPlantsByHeight(){
+    public void sortPlantsByHeight() {
         Collections.sort(plants, Comparator.comparingDouble(Plant::getHeight));
     }
 

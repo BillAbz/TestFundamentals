@@ -5,10 +5,11 @@ import be.intecbrussel.the_notebook.entities.animal_entities.Animal;
 import java.util.Comparator;
 import java.util.function.ToDoubleFunction;
 
-public class sortAnimalsByHeight implements Comparator<Animal> {
+public class AnimalSorterByName implements Comparator<Animal> {
+    
     @Override
     public int compare(Animal o1, Animal o2) {
-        return 0;
+        return o1.getName().compareTo(o2.getName());
     }
 
     @Override

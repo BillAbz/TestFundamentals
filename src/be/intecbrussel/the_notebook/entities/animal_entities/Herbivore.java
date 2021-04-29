@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Herbivore extends Animal{
+    
     private Set<Plant> plantDiet = new LinkedHashSet<>();
 
     public Herbivore(String name) {
@@ -30,7 +31,7 @@ public class Herbivore extends Animal{
     }
 
     public void printDiet(){
-
+        this.plantDiet.forEach(plant -> System.out.println(plant));
     }
 
     @Override
